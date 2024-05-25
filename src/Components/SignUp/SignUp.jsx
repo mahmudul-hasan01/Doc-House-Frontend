@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form"
 
 const SignUp = () => {
 
-    const { signUp } = useAuth()
+    const { signUp, loading } = useAuth()
     const navigate = useNavigate()
 
     const { register, handleSubmit } = useForm()
@@ -42,7 +42,14 @@ const SignUp = () => {
                     <label htmlFor="_password" className="block">Password</label>
                     <input id="_password" type="password" {...register("password")} placeholder=".............." min={5} className="p-3 block w-full outline-none border rounded-md invalid:border-red-700 valid:border-black" />
                     <input type="file" {...register("image")} />
-                    <button type="submit" className="py-2 px-5 mx-auto mt-8 shadow-lg border rounded-md border-black block hover:bg-[#07332F] hover:text-white duration-500">SignUp</button>
+                    <button type="submit" className="py-2 px-5 mx-auto mt-8 shadow-lg border rounded-md border-black block hover:bg-[#07332F] hover:text-white duration-500">
+                        {
+                            loading ?
+                            <div className="w-10 h-5 flex gap-2 items-center justify-center"><div className="w-2 h-5 animate-[ping_1.4s_linear_infinite] bg-[#07332F]"></div><div className="w-2 h-5 animate-[ping_1.8s_linear_infinite] bg-[#07332F]"></div><div className="w-2 h-5 animate-[ping_2s_linear_infinite] bg-[#07332F]"></div></div>
+                            :
+                            'SingUp'
+                        }
+                    </button>
                 </form>
 
                 {/* button type will be submit for handling form submission*/}
