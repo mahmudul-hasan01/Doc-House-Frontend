@@ -1,10 +1,11 @@
-import { useState } from 'react';
-import { useRef } from 'react';
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import icon from '../../../public/Group 1.svg'
 import { Link } from 'react-router-dom';
+import useAuth from '../../Hooks/useAuth';
 
 const Navbar = () => {
+
+  const { logout } = useAuth()
 
   const [dropDownState, setDropDownState] = useState(false);
   const dropDownMenuRef = useRef();
@@ -21,6 +22,23 @@ const Navbar = () => {
     return () => {
       document.removeEventListener('mousedown', closeDropDown);
     };
+  }, []);
+
+  // dropDown
+
+  const [open, setOpen] = useState(false);
+  const dropDownRef = useRef(null);
+
+  useEffect(() => {
+    const close = (e) => {
+      if (dropDownRef.current && !dropDownRef.current.contains(e.target)) {
+        setOpen(false)
+      }
+    };
+    document.addEventListener('mousedown', close);
+    return () => {
+      document.removeEventListener('mousedown', close)
+    }
   }, []);
 
   return (
@@ -42,6 +60,33 @@ const Navbar = () => {
         <li className="group flex  cursor-pointer flex-col">
           <Link to={'/login'}>Login</Link><span className="mt-[2px] h-[3px]  w-[0px] rounded-full bg-sky-500 transition-all duration-300 group-hover:w-full"></span>
         </li>
+        {/* dropDown */}
+        <div ref={dropDownRef} className="relative mx-auto w-fit text-black">
+          <button onClick={() => setOpen((prev) => !prev)}>
+            <img width={40} height={40} className="size-10 rounded-full bg-slate-500 object-cover duration-500 hover:scale-x-[98%] hover:opacity-80" src="https://source.unsplash.com/300x300/?profile" alt="avatar drop down navigate ui" />
+          </button>
+          <ul className={`${open ? 'visible duration-300' : 'invisible'} absolute right-0 top-12 z-50 w-fit rounded-sm bg-slate-200 shadow-md`}>
+            <li
+              className={`rounded-sm px-6 py-2 ${open ? 'opacity-100 duration-300' : 'opacity-0'}`}
+            >
+              Profile
+            </li>
+            <Link to={'/dashboard'}>
+              <li
+                to={'/dashboard'}
+                className={`rounded-sm px-6 py-2 hover:bg-[#07332F] hover:text-white ${open ? 'opacity-100 duration-300' : 'opacity-0'}`}
+              >
+                Dashboard
+              </li>
+            </Link>
+            <li
+              onClick={logout}
+              className={`rounded-sm px-6 py-2 ${open ? 'opacity-100 duration-300' : 'opacity-0'}  ${logout ? 'text-red-500 hover:bg-red-600 hover:text-white' : 'hover:bg-slate-300'}`}
+            >
+              Log Out
+            </li>
+          </ul>
+        </div>
       </ul>
       <div ref={dropDownMenuRef} onClick={() => setDropDownState(!dropDownState)} className="relative flex transition-transform md:hidden">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="cursor-pointer" > <line x1="4" x2="20" y1="12" y2="12" /> <line x1="4" x2="20" y1="6" y2="6" /><line x1="4" x2="20" y1="18" y2="18" /> </svg>
