@@ -2,13 +2,14 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import { FaStar } from "react-icons/fa";
 import { IoArrowForwardCircleOutline } from "react-icons/io5";
+import { Link } from "react-router-dom";
 
 const Appointment = () => {
 
     const axiosPublic = useAxiosPublic()
 
     const { data } = useQuery({
-        queryKey: ['doctor'],
+        queryKey: ['doctors'],
         queryFn: async () => {
             const info = await axiosPublic.get('/doctors')
             return info?.data
@@ -20,7 +21,7 @@ const Appointment = () => {
             {
                 data?.map(item => <div key={item._id} className="mx-auto my-20 max-w-[350px] space-y-6 rounded-xl bg-white px-4 pb-8 pt-4 font-sans shadow-lg dark:bg-[#18181B]">
                 <div className="relative flex h-48 w-full justify-center lg:h-[280px]">
-                    <img width={300} height={300} className="h-full w-full rounded-lg bg-black/40" src={item?.image} alt="card navigate ui" />
+                    <img width={300} height={300} className="h-full w-full rounded-lg bg-black/40" src={item?.image} alt="image" />
                 </div>
                 <div className=" space-y-3 font-semibold">
                     <h6 className="text-sm md:text-base lg:text-lg">{item?.name} </h6>
@@ -31,7 +32,7 @@ const Appointment = () => {
                 </div>
                 <div className="flex justify-between items-center">
                     <p>At Mount Adora Hospital, Dhaka</p>
-                    <button className="rounded-lg text-5xl font-sans font-semibold duration-300 hover:scale-105 "><IoArrowForwardCircleOutline className="hover:text-[#07332F]" /></button>
+                    <Link to={`/appointment/details/${item._id}`} className="rounded-lg text-5xl font-sans font-semibold duration-300 hover:scale-105 "><IoArrowForwardCircleOutline className="hover:text-[#07332F]" /></Link>
                 </div>
             </div>)
             }

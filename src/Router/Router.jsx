@@ -9,6 +9,7 @@ import Dashboard from "../Dashboard/Dashboard";
 import AdminHome from "../Dashboard/Admin/AdminHome";
 import AddDoctor from "../Dashboard/Admin/AddDoctor";
 import Appointment from "../Pages/Appointment/Appointment";
+import AppointmentDetails from "../Pages/Appointment/AppointmentDetails";
 
 export const router = createBrowserRouter([
     {
@@ -22,6 +23,10 @@ export const router = createBrowserRouter([
        {
         path: '/appointment',
         element: <Appointment></Appointment>
+       },
+       {
+        path: '/appointment/details/:id',
+        element: <AppointmentDetails></AppointmentDetails>
        },
       ]
     },
