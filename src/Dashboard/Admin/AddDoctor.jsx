@@ -1,12 +1,44 @@
 import { useForm } from "react-hook-form";
-import { FaUtensils } from "react-icons/fa6";
+// import { FaUtensils } from "react-icons/fa6";
+import axios from 'axios'
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import toast from 'react-hot-toast';
 
 const AddDoctor = () => {
 
+    const axiosPublic = useAxiosPublic()
     const { register, handleSubmit, reset } = useForm()
 
     const onSubmit = async (data) => {
-        console.table(data)
+        const imageFile = { image: data.image[0] }
+        const res = await axios.post(`https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_API_KEY}`, imageFile, {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        })
+        const doctorData = {
+            name: data?.name,
+            specialty: data?.specialty,
+            education: data?.education,
+            startDate: data?.startDate,
+            endDate: data?.endDate,
+            availableDate: data?.availableDate,
+            availableTimeStart: data?.availableTimeStart,
+            availableTimeEnd: data?.availableTimeEnd,
+            price: data?.price,
+            rating: data?.rating,
+            about: data?.about,
+            image: res?.data?.data?.display_url
+
+        }
+        if (res?.data?.success) {
+            const doctorInfo = await axiosPublic.post('/doctors', doctorData)
+            if (doctorInfo.data.insertedId) {
+                toast.success(`${data.neme} add successfully`)
+                reset()
+            }
+        }
+
     }
 
 
@@ -93,7 +125,7 @@ const AddDoctor = () => {
                             <div>
                                 <span >Available Time Start*</span>
                             </div>
-                            <input {...register("availableTimeStart1")} type="time" placeholder="Available Time" className="rounded-lg border border-[#07332fce] w-full  bg-transparent px-4 py-2 ring-offset-1 duration-200 focus:outline-none focus:ring-2 mt-2" />
+                            <input {...register("availableTimeStart")} type="time" placeholder="Available Time" className="rounded-lg border border-[#07332fce] w-full  bg-transparent px-4 py-2 ring-offset-1 duration-200 focus:outline-none focus:ring-2 mt-2" />
                         </label>
                         {/* 222222 */}
                         {/* <label>
@@ -116,7 +148,7 @@ const AddDoctor = () => {
                             <div>
                                 <span >Available Time End*</span>
                             </div>
-                            <input {...register("availableTimeEnd1")} type="time" placeholder="Available Time" className="rounded-lg border border-[#07332fce] w-full  bg-transparent px-4 py-2 ring-offset-1 duration-200 focus:outline-none focus:ring-2 mt-2" />
+                            <input {...register("availableTimeEnd")} type="time" placeholder="Available Time" className="rounded-lg border border-[#07332fce] w-full  bg-transparent px-4 py-2 ring-offset-1 duration-200 focus:outline-none focus:ring-2 mt-2" />
                         </label>
                         {/* 2222222 */}
                         {/* <label>
@@ -154,11 +186,11 @@ const AddDoctor = () => {
                 <div>
                     <label className="w-full">
                         <div>
-                            <span >Adout*</span>
+                            <span >About*</span>
                         </div>
-                        <input {...register("adout")} type="text" placeholder="About" className="rounded-lg border border-[#07332fce] w-full  bg-transparent px-4 py-10  ring-offset-1 duration-200 focus:outline-none focus:ring-2 mt-2 mb-5" />
+                        <input {...register("about")} type="text" placeholder="About" className="rounded-lg border border-[#07332fce] w-full  bg-transparent px-4 py-10  ring-offset-1 duration-200 focus:outline-none focus:ring-2 mt-2 mb-5" />
                     </label>
-                    <input type="file" {...register("image")} />
+                    <input className="border border-[#07332f] rounded-md" type="file" {...register("image")} />
                 </div>
                 <div className="flex justify-center">
                     <button className="py-3 px-5 bg-[#07332f] text-white rounded-md">Add Doctor</button>
