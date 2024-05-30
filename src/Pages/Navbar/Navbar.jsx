@@ -42,7 +42,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className="flex fixed w-[424px] md:w-[768px] lg:w-[1024px] xl:w-[1224px] items-center z-50 justify-between pt-7 px-10 py-2 text-white">
+    <nav className="flex fixed w-[424px] md:w-[768px] lg:w-[1024px] xl:w-[1280px] items-center z-50 justify-between  px-10 py-5 text-white bg-[#07332F] rounded-b-md">
       <div className="scale-100 cursor-pointer rounded-2xl px-3 py-2 text-xl font-semibold text-white transition-all  flex gap-4 items-center">
         <img className='w-10' src={icon} alt="" />
         <h2><span className='text-[#F7A582]'>Doc</span> House</h2>
@@ -55,7 +55,7 @@ const Navbar = () => {
           <Link to={'/'}>About</Link><span className="mt-[2px] h-[3px]  w-[0px] rounded-full bg-sky-500 transition-all duration-300 group-hover:w-full"></span>
         </li>
         <li className="group flex  cursor-pointer flex-col">
-          <Link to={'/'}>Appointment</Link><span className="mt-[2px] h-[3px]  w-[0px] rounded-full bg-sky-500 transition-all duration-300 group-hover:w-full"></span>
+          <Link to={'/appointment'}>Appointment</Link><span className="mt-[2px] h-[3px]  w-[0px] rounded-full bg-sky-500 transition-all duration-300 group-hover:w-full"></span>
         </li>
         <li className="group flex  cursor-pointer flex-col">
           <Link to={'/login'}>Login</Link><span className="mt-[2px] h-[3px]  w-[0px] rounded-full bg-sky-500 transition-all duration-300 group-hover:w-full"></span>
