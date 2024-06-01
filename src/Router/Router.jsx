@@ -10,6 +10,7 @@ import AdminHome from "../Dashboard/Admin/AdminHome";
 import AddDoctor from "../Dashboard/Admin/AddDoctor";
 import Appointment from "../Pages/Appointment/Appointment";
 import AppointmentDetails from "../Pages/Appointment/AppointmentDetails";
+import Profile from "../Pages/Profile/Profile";
 
 export const router = createBrowserRouter([
     {
@@ -27,6 +28,10 @@ export const router = createBrowserRouter([
        {
         path: '/appointment/details/:id',
         element: <AppointmentDetails></AppointmentDetails>
+       },
+       {
+        path: '/profile',
+        element: <Profile></Profile>
        },
       ]
     },

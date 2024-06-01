@@ -5,7 +5,7 @@ import useAuth from '../../Hooks/useAuth';
 
 const Navbar = () => {
 
-  const { logout } = useAuth()
+  const { logout, user } = useAuth()
 
   const [dropDownState, setDropDownState] = useState(false);
   const dropDownMenuRef = useRef();
@@ -63,17 +63,23 @@ const Navbar = () => {
         {/* dropDown */}
         <div ref={dropDownRef} className="relative mx-auto w-fit text-black">
           <button onClick={() => setOpen((prev) => !prev)}>
-            <img width={40} height={40} className="size-10 rounded-full bg-slate-500 object-cover duration-500 hover:scale-x-[98%] hover:opacity-80" src="https://source.unsplash.com/300x300/?profile" alt="avatar drop down navigate ui" />
+            <img width={40} height={40} className="size-10 rounded-full bg-slate-500 object-cover duration-500 hover:scale-x-[98%] hover:opacity-80" src={user?.photoURL} alt="avatar drop down navigate ui" />
           </button>
           <ul className={`${open ? 'visible duration-300' : 'invisible'} absolute right-0 top-12 z-50 w-fit rounded-sm bg-slate-200 shadow-md`}>
-            <li
+            {/* <li
               className={`rounded-sm px-6 py-2 ${open ? 'opacity-100 duration-300' : 'opacity-0'}`}
             >
               Profile
-            </li>
+            </li> */}
+            <Link to={'/profile'}>
+              <li
+                className={`rounded-sm px-6 py-2 hover:bg-[#07332F] hover:text-white ${open ? 'opacity-100 duration-300' : 'opacity-0'}`}
+              >
+                Profile
+              </li>
+            </Link>
             <Link to={'/dashboard'}>
               <li
-                to={'/dashboard'}
                 className={`rounded-sm px-6 py-2 hover:bg-[#07332F] hover:text-white ${open ? 'opacity-100 duration-300' : 'opacity-0'}`}
               >
                 Dashboard

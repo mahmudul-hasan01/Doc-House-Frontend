@@ -1,24 +1,56 @@
-import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import loginImage from '../../../public/loginImage.json'
 import Lottie from "lottie-react";
 import useAuth from "../../Hooks/useAuth";
 import { useForm } from "react-hook-form"
+import toast from 'react-hot-toast';
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 
 const SignUp = () => {
 
-    const { signUp, loading } = useAuth()
+    const { signUp, loading, updateUserProfile, googleSignIn } = useAuth()
     const navigate = useNavigate()
+    const axiosPublic = useAxiosPublic()
 
     const { register, handleSubmit } = useForm()
 
     const onSubmit = async (data) => {
-        await signUp(data?.email, data?.password)
-        navigate('/')
+
+        // await signUp(data?.email, data?.password)
+        signUp(data?.email, data?.password)
+            .then(() => {
+                const userInfo = {
+                    name: data?.name,
+                    email: data?.email,
+                    role: 'patiend',
+                    // role: 'doctor',
+                    // role: 'admin',
+                }
+                axiosPublic.post('/users', userInfo)
+                    .then(res => {
+                        console.log(res?.data);
+                    })
+            })
+
+        const imageFile = { image: data.image[0] }
+        const res = await axiosPublic.post(`https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_API_KEY}`, imageFile, {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        })
+
+        if (res?.data?.success) {
+            await updateUserProfile(data?.name, res?.data?.data?.display_url)
+            toast.success('SignUp Successfully')
+            navigate('/')
+        }
     }
 
+    const handleGoogleSignIn = async () => {
+        await googleSignIn()
+    }
 
 
     return (
@@ -45,9 +77,9 @@ const SignUp = () => {
                     <button type="submit" className="py-2 px-5 mx-auto mt-8 shadow-lg border rounded-md border-black block hover:bg-[#07332F] hover:text-white duration-500">
                         {
                             loading ?
-                            <div className="w-10 h-5 flex gap-2 items-center justify-center"><div className="w-2 h-5 animate-[ping_1.4s_linear_infinite] bg-[#07332F]"></div><div className="w-2 h-5 animate-[ping_1.8s_linear_infinite] bg-[#07332F]"></div><div className="w-2 h-5 animate-[ping_2s_linear_infinite] bg-[#07332F]"></div></div>
-                            :
-                            'SingUp'
+                                <div className="w-10 h-5 flex gap-2 items-center justify-center"><div className="w-2 h-5 animate-[ping_1.4s_linear_infinite] bg-[#07332F]"></div><div className="w-2 h-5 animate-[ping_1.8s_linear_infinite] bg-[#07332F]"></div><div className="w-2 h-5 animate-[ping_2s_linear_infinite] bg-[#07332F]"></div></div>
+                                :
+                                'SingUp'
                         }
                     </button>
                 </form>
@@ -55,7 +87,7 @@ const SignUp = () => {
                 {/* button type will be submit for handling form submission*/}
                 <p className="text-center py-2">You have an account?<Link to={'/login'} className="underline font-semibold hover:text-[#07332F]">Login</Link></p>
                 <hr />
-                <button type="button" className="py-2 px-5 mb-4 mt-8 mx-auto block shadow-lg border rounded-md border-black hover:bg-[#07332F] hover:text-white duration-500"><FcGoogle className="w-6 inline-block mr-3" /> Continue with Google</button>
+                <button onClick={handleGoogleSignIn} type="button" className="py-2 px-5 mb-4 mt-8 mx-auto block shadow-lg border rounded-md border-black hover:bg-[#07332F] hover:text-white duration-500"><FcGoogle className="w-6 inline-block mr-3" /> Continue with Google</button>
             </div>
 
         </div>

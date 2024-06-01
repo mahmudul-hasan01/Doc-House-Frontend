@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 
 const Login = () => {
 
-    const { login, loading } = useAuth()
+    const { login, loading, googleSignIn } = useAuth()
     const navigate = useNavigate()
 
     const { register, handleSubmit } = useForm()
@@ -17,6 +17,11 @@ const Login = () => {
         await login(data?.email, data?.password)
         navigate('/')
     }
+
+    const handleGoogleSignIn =async () => {
+        await googleSignIn()
+    }
+
 
 
     return (
@@ -46,7 +51,7 @@ const Login = () => {
                 {/* button type will be submit for handling form submission*/}
                 <p className="my-3 text-center">Don&apos;t have an account?<Link to={'/signUp'} className="underline font-semibold hover:text-[#07332F]">SignUp</Link></p>
                 <hr />
-                <button type="button" className="py-2 px-5 mb-4 mt-8 mx-auto block shadow-lg border rounded-md border-black hover:bg-[#07332F] hover:text-white duration-500"><FcGoogle className="w-6 inline-block mr-3" /> Continue with Google</button>
+                <button onClick={handleGoogleSignIn} type="button" className="py-2 px-5 mb-4 mt-8 mx-auto block shadow-lg border rounded-md border-black hover:bg-[#07332F] hover:text-white duration-500"><FcGoogle className="w-6 inline-block mr-3" /> Continue with Google</button>
             </div>
 
         </div>
