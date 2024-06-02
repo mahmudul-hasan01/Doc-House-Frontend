@@ -15,7 +15,7 @@ const Appointment = () => {
             return info?.data
         }
     })
-
+    
     return (
         <div className="pt-28 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-10">
             {
@@ -32,7 +32,7 @@ const Appointment = () => {
                 </div>
                 <div className="flex justify-between items-center">
                     <p>At Mount Adora Hospital, Dhaka</p>
-                    <Link to={`/appointment/details/${item._id}`} className="rounded-lg text-5xl font-sans font-semibold duration-300 hover:scale-105 "><IoArrowForwardCircleOutline className="hover:text-[#07332F]" /></Link>
+                    <Link to={`/appointment/details/${item?._id}`} className="rounded-lg text-5xl font-sans font-semibold duration-300 hover:scale-105 "><IoArrowForwardCircleOutline className="hover:text-[#07332F]" /></Link>
                 </div>
             </div>)
             }

@@ -11,6 +11,7 @@ import AddDoctor from "../Dashboard/Admin/AddDoctor";
 import Appointment from "../Pages/Appointment/Appointment";
 import AppointmentDetails from "../Pages/Appointment/AppointmentDetails";
 import Profile from "../Pages/Profile/Profile";
+import AllUser from "../Dashboard/Admin/AllUser";
 
 export const router = createBrowserRouter([
     {
@@ -27,7 +28,8 @@ export const router = createBrowserRouter([
        },
        {
         path: '/appointment/details/:id',
-        element: <AppointmentDetails></AppointmentDetails>
+        element: <AppointmentDetails></AppointmentDetails>,
+        // loader: ({params}) => fetch(`http://localhost:5000/doctor/${params?.id}`)
        },
        {
         path: '/profile',
@@ -56,6 +58,10 @@ export const router = createBrowserRouter([
         {
           path: 'addDoctor',
           element: <AddDoctor></AddDoctor>
+        },
+        {
+          path: 'allUser',
+          element: <AllUser></AllUser>
         },
       ]
     }

@@ -1,11 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../Hooks/useAuth";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import { useState } from "react";
 
 const Profile = () => {
 
     const { user, logout } = useAuth()
-
+    const [openModal, setOpenModal] = useState(false);
     const axiosPublic = useAxiosPublic()
 
     const { data } = useQuery({
@@ -15,6 +16,13 @@ const Profile = () => {
             return info?.data
         }
     })
+
+    const handleSubmit =async (e) => {
+        e.preventDefault()
+        const status = e.target.updateRole.value
+        const info = await axiosPublic.patch(`/requestRole/${user?.email}`, {status})
+        console.log(info);
+    }
 
     return (
         <div className="pt-32 mb-12">
@@ -32,8 +40,39 @@ const Profile = () => {
                         <p className="font-sans text-gray-500 dark:text-white/70 font-semibold">Role: {data?.role ? data?.role : '.......'}</p>
                     </div>
                     <div className="flex flex-wrap gap-3 items-center justify-between">
-                        <div className="space-y-1">
+                        {/* <div className="space-y-1">
                             <button className="py-2 px-4 rounded-md bg-[#07332F] text-white">Make Doctor</button>
+                        </div> */}
+                        {/* update profile */}
+                        <div className="mx-auto w-fit">
+                            <button onClick={() => setOpenModal(true)} className="py-2 px-4 rounded-md bg-[#07332F] text-white">
+                                Make Doctor
+                            </button>
+                            <div
+                                onClick={() => setOpenModal(false)}
+                                className={`fixed z-[100] flex items-center justify-center ${openModal ? 'visible opacity-100' : 'invisible opacity-0'} inset-0 bg-black/20 backdrop-blur-sm duration-100 dark:bg-transparent`}
+                            >
+                                <div onClick={(e_) => e_.stopPropagation()} className={`text- absolute max-w-md rounded-lg bg-white p-6 drop-shadow-lg dark:bg-gray-800 dark:text-white ${openModal ? 'scale-1 opacity-1 duration-300' : 'scale-0 opacity-0 duration-150'}`}>
+                                    <h1 className="mb-2 text-2xl font-semibold">Make Doctor/Admin</h1>
+                                    <form onSubmit={handleSubmit}>
+                                        <select name="updateRole" defaultValue={'default'} className="rounded-lg border border-[#07332fce] w-full mb-5 bg-transparent px-4 py-2 ring-offset-1 duration-200 focus:outline-none focus:ring-2 mt-2">
+                                            <option disabled value={'default'}>Select a category</option>
+                                            <option value="R-Doctor">Request For Doctor</option>
+                                            <option value="R-Admin">Request For Admin</option>
+                                        </select>
+                                        <button className="py-2 px-4 mb-3 rounded-md bg-[#07332F] text-white">Requested</button>
+                                    </form>
+                                    {/* <p className="mb-5 text-sm opacity-80">Elevate your React projects with beautifully crafted components designed for TailwindCSS.</p> */}
+                                    <div className="flex justify-end">
+                                        {/* <button onClick={() => setOpenModal(false)} className="me-2 rounded-md bg-indigo-600 hover:bg-indigo-700 px-6 py-[6px] text-white">
+                                            Ok
+                                        </button> */}
+                                        <button onClick={() => setOpenModal(false)} className="rounded-md border border-[red] px-6 py-[6px] text-[red] duration-150 hover:bg-[red] hover:text-white">
+                                            Cancel
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div className="space-y-1">
                             <button className="py-2 px-4 rounded-md bg-[#07332F] text-white">Update Profile</button>

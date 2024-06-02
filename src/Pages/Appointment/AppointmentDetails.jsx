@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
-import { useParams } from "react-router-dom";
+import { useLoaderData, useParams } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
@@ -16,9 +16,12 @@ const AppointmentDetails = () => {
     const { user } = useAuth()
     const axiosPublic = useAxiosPublic()
     const { id } = useParams()
+    console.log(id);
     const [rating, setRating] = useState(0);
     const [feedbacks, setFeedback] = useState([])
-
+    // const data = useLoaderData()
+    // console.log(data);
+ 
     const { data } = useQuery({
         queryKey: ['doctor'],
         queryFn: async () => {
@@ -26,8 +29,9 @@ const AppointmentDetails = () => {
             return info?.data
         }
     })
-
-    axiosPublic.get('/feedback')
+    console.log(data);
+    // /gadgets/category?name=${name?.name}
+    axiosPublic.get(`/feedback?name=${data?.name}`)
         .then(res => setFeedback(res.data))
 
     const handleFeedback = async (e) => {
