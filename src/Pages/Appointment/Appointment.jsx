@@ -17,9 +17,9 @@ const Appointment = () => {
     })
 
     return (
-        <div className="pt-10 grid grid-cols-3 gap-10">
+        <div className="pt-28 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-10">
             {
-                data?.map(item => <div key={item._id} className="mx-auto my-20 max-w-[350px] space-y-6 rounded-xl bg-white px-4 pb-8 pt-4 font-sans shadow-lg dark:bg-[#18181B]">
+                data?.map(item => <div key={item._id} className="mx-auto max-w-[350px] space-y-6 rounded-xl bg-white px-4 pb-8 pt-4 font-sans shadow-lg dark:bg-[#18181B]">
                 <div className="relative flex h-48 w-full justify-center lg:h-[280px]">
                     <img width={300} height={300} className="h-full w-full rounded-lg bg-black/40" src={item?.image} alt="image" />
                 </div>

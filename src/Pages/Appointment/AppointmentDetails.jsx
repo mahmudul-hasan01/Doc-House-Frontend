@@ -5,11 +5,19 @@ import { FaStar } from "react-icons/fa";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import { FaArrowsAltH } from "react-icons/fa";
+import { useState } from "react";
+import { Rating } from '@smastrom/react-rating'
+import '@smastrom/react-rating/style.css'
+import useAuth from "../../Hooks/useAuth";
+import toast from "react-hot-toast";
 
 const AppointmentDetails = () => {
 
+    const { user } = useAuth()
     const axiosPublic = useAxiosPublic()
     const { id } = useParams()
+    const [rating, setRating] = useState(0);
+    const [feedbacks, setFeedback] = useState([])
 
     const { data } = useQuery({
         queryKey: ['doctor'],
@@ -18,8 +26,24 @@ const AppointmentDetails = () => {
             return info?.data
         }
     })
-    console.log(data);
 
+    axiosPublic.get('/feedback')
+        .then(res => setFeedback(res.data))
+
+    const handleFeedback = async (e) => {
+        e.preventDefault()
+        const feedback = e.target.feedback.value
+        const feedbackData = {
+            doctorName: data?.name,
+            name: user?.displayName,
+            photo: user?.photoURL,
+            feedback: feedback,
+            rating: rating,
+            date: new Date()
+        }
+        await axiosPublic.post('/feedback', feedbackData)
+        toast.success('Feedback Add Successfully')
+    }
 
     return (
         <div className="pt-32">
@@ -56,13 +80,13 @@ const AppointmentDetails = () => {
                     </div>
                 </div>
                 <div className="mt-7">
-                    <Tabs>
+                    <Tabs className={'text-center'}>
                         <TabList>
                             <Tab>About</Tab>
                             <Tab>Feedback</Tab>
                         </TabList>
 
-                        <TabPanel>
+                        <TabPanel className={'text-start'}>
                             <h1 className="my-5 font-semibold">About Of <span className="text-[#30a5c2] ">{data?.name}</span></h1>
                             <p>{data?.about}</p>
                             <div className="mt-5 space-y-2">
@@ -76,7 +100,50 @@ const AppointmentDetails = () => {
                             </div>
                         </TabPanel>
                         <TabPanel>
-                            <h2>Any content 2</h2>
+                            <div className="flex">
+                                <div className="flex-1 space-y-4">
+                                    <h2 className="font-semibold mt-10">How would you rate the overall exprience</h2>
+                                    <form onSubmit={handleFeedback}>
+                                        <div className={'flex justify-center'}>
+                                            <Rating
+                                                style={{ maxWidth: 180 }}
+                                                value={rating}
+                                                onChange={setRating}
+                                                isRequired
+                                            />
+                                        </div>
+                                        <p className="font-semibold py-4">Share your feedback or suggestions</p>
+                                        <input name={'feedback'} type="text" placeholder="Feedback" className="rounded-lg border border-[#07332fce] w-[400px] h-[100px] pl-4 bg-transparent ring-offset-1 duration-200 focus:outline-none focus:ring-2 mt-2 mb-5" />
+                                        <div className="flex justify-center">
+                                            <button className="py-3 px-5 bg-[#07332f] text-white rounded-md">Submit Feedback</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div className="flex-1 text-start space-y-7 mt-10">
+                                    {
+                                        feedbacks?.map(feedback => <div key={feedback._id}>
+                                            <div className="flex justify-between items-center">
+                                                <div className="flex gap-6">
+                                                    <img width={40} height={40} className="size-10 rounded-full bg-slate-500 object-cover duration-500 hover:scale-x-[98%] hover:opacity-80" src={feedback?.photo} alt="avatar drop down navigate ui" />
+                                                    <div>
+                                                        <h1>{feedback?.name}</h1>
+                                                        <p>{feedback?.date}</p>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <Rating
+                                                        style={{ maxWidth: 120 }}
+                                                        value={feedback?.rating}
+                                                        readOnly
+                                                    />
+                                                </div>
+                                            </div>
+                                            <p className="py-5 pl-16">{feedback?.feedback}</p>
+                                            <hr />
+                                        </div>)
+                                    }
+                                </div>
+                            </div>
                         </TabPanel>
                     </Tabs>
                 </div>

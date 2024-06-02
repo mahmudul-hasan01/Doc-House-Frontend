@@ -28,10 +28,10 @@ const Profile = () => {
                 <div className="min-w-[250px] max-w-[350px] space-y-12 rounded-br-lg rounded-tr-lg bg-white p-10 text-center shadow-[0px_7px_30px_2px_rgba(100,100,111,0.2)] dark:bg-[#18181B] md:w-[350px] dark:shadow-[0px_2px_8px_0px_rgba(0,0,0,0.8)]">
                     <div className="space-y-1">
                         <h2 className="text-center font-sans text-2xl font-medium text-gray-700 dark:text-white/90 lg:text-3xl">{data?.name}</h2>
-                        <p className="font-sans text-gray-500 dark:text-white/70"> {data?.email}</p>
-                        <p className="font-sans text-gray-500 dark:text-white/70">Role: {data?.role ? data?.role : '.......'}</p>
+                        <p className="font-sans text-gray-500 dark:text-white/70 font-semibold"> {data?.email}</p>
+                        <p className="font-sans text-gray-500 dark:text-white/70 font-semibold">Role: {data?.role ? data?.role : '.......'}</p>
                     </div>
-                    <div className="flex flex-wrap items-center justify-between">
+                    <div className="flex flex-wrap gap-3 items-center justify-between">
                         <div className="space-y-1">
                             <button className="py-2 px-4 rounded-md bg-[#07332F] text-white">Make Doctor</button>
                         </div>
