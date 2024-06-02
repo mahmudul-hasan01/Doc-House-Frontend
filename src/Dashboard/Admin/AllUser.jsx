@@ -3,6 +3,8 @@ import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import { MdDeleteForever, MdBrowserUpdated } from "react-icons/md";
 import { useState } from "react";
 import useAuth from "../../Hooks/useAuth";
+import {Link} from 'react-router-dom'
+import toast from "react-hot-toast";
 
 
 const AllUser = () => {
@@ -23,6 +25,13 @@ const AllUser = () => {
         e.preventDefault()
         const role = e.target.updateRole.value
         await axiosPublic.patch(`/updateRole/${user?.email}`, { status: 'Verified', role })
+        toast.success('Update Role Successfully')
+        refetch()
+    }
+
+    const handleDelete =async (id) => {
+        await axiosPublic.delete(`/users/${id}`)
+        toast.success('Delete Successfully')
         refetch()
     }
 
@@ -38,7 +47,6 @@ const AllUser = () => {
                             <th className="py-3 px-6 text-left border-b">Status</th>
                             <th className="py-3 px-6  border-b text-end">Role</th>
                             <th className="py-3 px-6  border-b text-end">Update Role</th>
-                            <th className="py-3 px-6  border-b text-end">Update</th>
                             <th className="py-3 px-6  border-b text-end">Delete</th>
                         </tr>
                     </thead>
@@ -71,11 +79,7 @@ const AllUser = () => {
                                                         <button className="py-2 px-4 rounded-md bg-[#07332F] text-white">Update Role</button>
                                                     </div>
                                                 </form>
-                                                {/* <p className="mb-5 text-sm opacity-80">Elevate your React projects with beautifully crafted components designed for TailwindCSS.</p> */}
                                                 <div className="flex justify-end">
-                                                    {/* <button onClick={() => setOpenModal(false)} className="me-2 rounded-md bg-indigo-600 hover:bg-indigo-700 px-6 py-[6px] text-white">
-                                            Ok
-                                        </button> */}
                                                     <button onClick={() => setOpenModal(false)} className="rounded-md border border-[red] px-6 py-[6px] text-[red] duration-150 hover:bg-[red] hover:text-white">
                                                         Cancel
                                                     </button>
@@ -85,8 +89,7 @@ const AllUser = () => {
                                     </div>
                                 </td>
 
-                                <td className="py-4 px-6 border-b text-3xl"><MdBrowserUpdated /></td>
-                                <td className="py-4 px-6 border-b text-3xl"><MdDeleteForever /></td>
+                                <td className="py-4 px-6 border-b text-3xl hover:text-red-600 duration-500"><MdDeleteForever onClick={() => handleDelete(user?._id)} /></td>
                             </tr>)
                         }
 

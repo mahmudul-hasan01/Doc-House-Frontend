@@ -12,6 +12,7 @@ import Appointment from "../Pages/Appointment/Appointment";
 import AppointmentDetails from "../Pages/Appointment/AppointmentDetails";
 import Profile from "../Pages/Profile/Profile";
 import AllUser from "../Dashboard/Admin/AllUser";
+import UpdateUser from "../Dashboard/Admin/UpdateUser";
 
 export const router = createBrowserRouter([
     {
@@ -62,6 +63,10 @@ export const router = createBrowserRouter([
         {
           path: 'allUser',
           element: <AllUser></AllUser>
+        },
+        {
+          path: 'updateUser',
+          element: <UpdateUser></UpdateUser>
         },
       ]
     }
