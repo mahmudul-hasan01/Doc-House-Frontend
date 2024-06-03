@@ -19,9 +19,10 @@ const AppointmentDetails = () => {
     console.log(id);
     const [rating, setRating] = useState(0);
     const [feedbacks, setFeedback] = useState([])
+    const [openModal, setOpenModal] = useState(false);
     // const data = useLoaderData()
     // console.log(data);
- 
+
     const { data } = useQuery({
         queryKey: ['doctor'],
         queryFn: async () => {
@@ -29,8 +30,7 @@ const AppointmentDetails = () => {
             return info?.data
         }
     })
-    console.log(data);
-    // /gadgets/category?name=${name?.name}
+
     axiosPublic.get(`/feedback?name=${data?.name}`)
         .then(res => setFeedback(res.data))
 
@@ -52,10 +52,10 @@ const AppointmentDetails = () => {
     return (
         <div className="pt-32">
             <div>
-                <div className="flex gap-80">
+                <div className="flex flex-col items-center gap-7 md:flex-row md:justify-around lg:justify-around xl:justify-normal xl:gap-80">
                     <div className="flex gap-4 items-center">
                         <div>
-                            <img className="w-80 rounded-md" src={data?.image} alt="" />
+                            <img className="w-60 lg:w-80 rounded-md" src={data?.image} alt="" />
                         </div>
                         <div className="space-y-5">
                             <p className="py-2 px-4 bg-[#5DAABE] text-white rounded-md">{data?.specialty}</p>
@@ -64,7 +64,7 @@ const AppointmentDetails = () => {
                         </div>
                     </div>
 
-                    <div className="w-72 p-6 rounded-md bg-slate-100 space-y-5">
+                    <div className="w-60 lg:w-72 p-6 rounded-md bg-slate-100 space-y-5">
                         <div className="flex justify-between">
                             <p>Price:-</p>
                             <p className="font-bold">{data?.price} BDT</p>
@@ -78,8 +78,37 @@ const AppointmentDetails = () => {
                                 <p>{data?.availableTimeEnd}</p>
                             </div>
                         </div>
+                        {/* Modal */}
                         <div className="flex justify-center">
-                            <button className="py-2 px-4 bg-[#07332F] rounded-md text-white">Book Appointment</button>
+                            <div className="mx-auto w-fit">
+                                <button onClick={() => setOpenModal(true)} className="py-2 px-4 bg-[#07332F] rounded-md text-white">
+                                    Book Appointment
+                                </button>
+                                <div
+                                    onClick={() => setOpenModal(false)}
+                                    className={`fixed z-[100] flex items-center justify-center ${openModal ? 'visible opacity-100' : 'invisible opacity-0'} inset-0 bg-black/20 backdrop-blur-sm duration-100 dark:bg-transparent`}
+                                >
+                                    <div onClick={(e_) => e_.stopPropagation()} className={`text- absolute max-w-md rounded-lg bg-white p-6 drop-shadow-lg dark:bg-gray-800 dark:text-white ${openModal ? 'scale-1 opacity-1 duration-300' : 'scale-0 opacity-0 duration-150'}`}>
+                                        <h1 className="mb-2 text-2xl font-semibold">Welcome for appointment</h1>
+                                        <div>
+                                            <h6 className="text-sm md:text-base lg:text-lg">{data?.name} </h6>
+                                            <p>{data?.availableDate}:</p>
+                                            <div className="flex items-center gap-2">
+                                                <p>{data?.availableTimeStart}</p>
+                                                {/* <FaArrowsAltH /> */} -
+                                                <p>{data?.availableTimeEnd}</p>
+                                            </div>
+                                            <p>Price: <span className="font-semibold">{data?.price} BDT</span></p>
+                                        </div>
+                                        <div className="flex justify-end">
+                                            <button onClick={() => setOpenModal(false)} className="rounded-md border border-rose-600 px-6 py-[6px] text-rose-600 duration-150 hover:bg-rose-600 hover:text-white">
+                                                Cancel
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {/* modal end */}
                         </div>
                     </div>
                 </div>
@@ -90,7 +119,7 @@ const AppointmentDetails = () => {
                             <Tab>Feedback</Tab>
                         </TabList>
 
-                        <TabPanel className={'text-start'}>
+                        <TabPanel className={'text-start p-5'}>
                             <h1 className="my-5 font-semibold">About Of <span className="text-[#30a5c2] ">{data?.name}</span></h1>
                             <p>{data?.about}</p>
                             <div className="mt-5 space-y-2">
@@ -104,7 +133,7 @@ const AppointmentDetails = () => {
                             </div>
                         </TabPanel>
                         <TabPanel>
-                            <div className="flex">
+                            <div className="flex flex-col-reverse lg:flex-row">
                                 <div className="flex-1 space-y-4">
                                     <h2 className="font-semibold mt-10">How would you rate the overall exprience</h2>
                                     <form onSubmit={handleFeedback}>
@@ -126,7 +155,7 @@ const AppointmentDetails = () => {
                                 <div className="flex-1 text-start space-y-7 mt-10">
                                     {
                                         feedbacks?.map(feedback => <div key={feedback._id}>
-                                            <div className="flex justify-between items-center">
+                                            <div className="flex justify-around items-center">
                                                 <div className="flex gap-6">
                                                     <img width={40} height={40} className="size-10 rounded-full bg-slate-500 object-cover duration-500 hover:scale-x-[98%] hover:opacity-80" src={feedback?.photo} alt="avatar drop down navigate ui" />
                                                     <div>

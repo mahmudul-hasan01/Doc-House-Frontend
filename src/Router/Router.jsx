@@ -12,7 +12,8 @@ import Appointment from "../Pages/Appointment/Appointment";
 import AppointmentDetails from "../Pages/Appointment/AppointmentDetails";
 import Profile from "../Pages/Profile/Profile";
 import AllUser from "../Dashboard/Admin/AllUser";
-import UpdateUser from "../Dashboard/Admin/UpdateUser";
+import AllDoctor from "../Dashboard/Admin/AllDoctor";
+import UpdateDoctor from "../Dashboard/Admin/UpdateDoctor";
 
 export const router = createBrowserRouter([
     {
@@ -65,8 +66,12 @@ export const router = createBrowserRouter([
           element: <AllUser></AllUser>
         },
         {
-          path: 'updateUser',
-          element: <UpdateUser></UpdateUser>
+          path: 'updateUser/:id',
+          element: <UpdateDoctor></UpdateDoctor>
+        },
+        {
+          path: 'allDoctor',
+          element: <AllDoctor></AllDoctor>
         },
       ]
     }

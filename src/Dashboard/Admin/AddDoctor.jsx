@@ -44,6 +44,7 @@ const AddDoctor = () => {
 
     return (
         <div>
+            <p className="text-center text-4xl mb-4">Add Doctor Information</p>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                 {/* 11111111 */}
                 <div className="flex gap-5">
