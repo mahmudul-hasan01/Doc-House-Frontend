@@ -1,27 +1,25 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
-import { useLoaderData, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import { FaArrowsAltH } from "react-icons/fa";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Rating } from '@smastrom/react-rating'
 import '@smastrom/react-rating/style.css'
 import useAuth from "../../Hooks/useAuth";
 import toast from "react-hot-toast";
+import Payment from "../../Components/Payment/Payment";
 
 const AppointmentDetails = () => {
 
     const { user } = useAuth()
     const axiosPublic = useAxiosPublic()
     const { id } = useParams()
-    console.log(id);
     const [rating, setRating] = useState(0);
     const [feedbacks, setFeedback] = useState([])
     const [openModal, setOpenModal] = useState(false);
-    // const data = useLoaderData()
-    // console.log(data);
 
     const { data } = useQuery({
         queryKey: ['doctor'],
@@ -31,8 +29,21 @@ const AppointmentDetails = () => {
         }
     })
 
-    axiosPublic.get(`/feedback?name=${data?.name}`)
-        .then(res => setFeedback(res.data))
+    // const {data: feedbacks = []} = useQuery({
+    //     queryKey: ['feedback'],
+    //     queryFn: async () => {
+    //         const info = await axiosPublic.get(`/feedback`)
+    //         return info
+    //     }
+    // })
+
+        useEffect(() => {
+            axiosPublic.get(`/feedback?name=${data?.name}`)
+                .then(res => {
+                    setFeedback(res?.data)
+                })
+            // eslint-disable-next-line react-hooks/exhaustive-deps
+        }, [])
 
     const handleFeedback = async (e) => {
         e.preventDefault()
@@ -99,6 +110,9 @@ const AppointmentDetails = () => {
                                                 <p>{data?.availableTimeEnd}</p>
                                             </div>
                                             <p>Price: <span className="font-semibold">{data?.price} BDT</span></p>
+                                            <div className="mt-5">
+                                                <Payment price={data?.price}></Payment>
+                                            </div>
                                         </div>
                                         <div className="flex justify-end">
                                             <button onClick={() => setOpenModal(false)} className="rounded-md border border-rose-600 px-6 py-[6px] text-rose-600 duration-150 hover:bg-rose-600 hover:text-white">

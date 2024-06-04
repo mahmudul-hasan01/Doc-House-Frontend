@@ -14,11 +14,14 @@ import Profile from "../Pages/Profile/Profile";
 import AllUser from "../Dashboard/Admin/AllUser";
 import AllDoctor from "../Dashboard/Admin/AllDoctor";
 import UpdateDoctor from "../Dashboard/Admin/UpdateDoctor";
+import ErrorPage from "../Components/Error/ErrorPage";
+import PrivateRoute from "../Components/PrivateRoute/PrivateRoute";
 
 export const router = createBrowserRouter([
     {
       path: "/",
       element: <MainLayout></MainLayout>,
+      errorElement:<ErrorPage></ErrorPage>,
       children: [
        {
         path: '/',
@@ -51,7 +54,7 @@ export const router = createBrowserRouter([
     // dashboard
     {
       path: 'dashboard',
-      element: <Dashboard></Dashboard>,
+      element: <PrivateRoute> <Dashboard></Dashboard> </PrivateRoute>,
       children:[
         {
           path: 'adminHome',
