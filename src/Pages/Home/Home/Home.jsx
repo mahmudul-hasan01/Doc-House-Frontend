@@ -1,7 +1,7 @@
 import Banner from "../Banner/Banner";
-import ContactWithUs from "../ContactWithUs/ContactWithUs";
 import OurLocations from "../OurLocations/OurLocations";
 import OurService from "../OurService/OurService";
+import PatientsReview from "../PatientsReview/PatientsReview";
 
 const Home = () => {
     return (
@@ -9,7 +9,7 @@ const Home = () => {
             <Banner></Banner>
             <OurService></OurService>
             <OurLocations></OurLocations>
-            <ContactWithUs></ContactWithUs>
+            <PatientsReview></PatientsReview>
         </div>
     );
 };

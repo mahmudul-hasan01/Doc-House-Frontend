@@ -29,14 +29,6 @@ const AppointmentDetails = () => {
         }
     })
 
-    // const {data: feedbacks = []} = useQuery({
-    //     queryKey: ['feedback'],
-    //     queryFn: async () => {
-    //         const info = await axiosPublic.get(`/feedback`)
-    //         return info
-    //     }
-    // })
-
         useEffect(() => {
             axiosPublic.get(`/feedback?name=${data?.name}`)
                 .then(res => {

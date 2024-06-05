@@ -3,7 +3,7 @@ import image1 from '../../../assets/Rectangle 20078.png'
 
 const OurService = () => {
     return (
-        <div className='flex flex-col md:flex-row gap-5 justify-center space-y-4 items-center mt-5 lg:mt-10 p-7 lg:px-20'>
+        <div className='flex flex-col md:flex-row gap-5 justify-center space-y-4 items-center mt-5 lg:mt-10 p-7 lg:py-0 lg:px-20'>
             <div className='flex-1'>
                 <img className='h-[750px] w-full lg:w-11/12 ' src={image1} alt="" />
             </div>
