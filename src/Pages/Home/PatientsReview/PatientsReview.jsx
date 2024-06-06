@@ -18,6 +18,7 @@ const PatientsReview = () => {
         const review = e.target.review.value
         const reviewData = {
             name: user?.displayName,
+            email: user?.email,
             photo: user?.photoURL,
             review: review,
             rating: rating
@@ -42,18 +43,6 @@ const PatientsReview = () => {
             </div>
             <div className='md:flex-1'>
                 <form onSubmit={handleReview} className='space-y-5'>
-                    {/* <div className={'flex flex-col lg:flex-row gap-7'}>
-                        <input type="text" name='Name' placeholder="Name" className="py-2 pl-2 rounded-md w-full bg-transparent border border-red-400 max-w-xs text-white" />
-                        <input type="email" name='Email' placeholder="Email" className="py-2 pl-2 rounded-md w-full bg-transparent border border-red-400 max-w-xs text-white" />
-                    </div>
-                    <div className={'flex flex-col lg:flex-row gap-7'}>
-                        <input type="number" name='Mobile Number' placeholder="Mobile Number" className="py-2 pl-2 rounded-md w-full bg-transparent border border-red-400 max-w-xs text-white" />
-                        <input type="text" name='Doctor Name' placeholder="Doctor Name" className="py-2 pl-2 rounded-md w-full bg-transparent border border-red-400 max-w-xs text-white" />
-                    </div>
-                    <div className={'flex flex-col lg:flex-row gap-7'}>
-                        <input type="date" name='Date' placeholder="Date" className="py-2 pl-2 rounded-md w-full bg-transparent border border-red-400 max-w-xs text-white" />
-                        <input type="time" name='Time' placeholder="Time" className="py-2 pl-2 rounded-md w-full bg-transparent border text-white border-red-400 max-w-xs" />
-                    </div> */}
                     <div className="flex-1 space-y-4">
                         <h2 className="font-semibold text-xl mt-10 text-white ">Give your valuable review about our hospital</h2>
                         <div className={'mb-4'}>

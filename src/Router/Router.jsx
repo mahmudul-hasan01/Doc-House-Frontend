@@ -18,6 +18,8 @@ import ErrorPage from "../Components/Error/ErrorPage";
 import PrivateRoute from "../Components/PrivateRoute/PrivateRoute";
 import ManageAppointment from "../Dashboard/Admin/ManageAppointment";
 import PatientReview from "../Dashboard/Admin/PatientReview";
+import MyAppointment from "../Dashboard/User/MyAppointment";
+import MyReview from "../Dashboard/User/MyReview";
 
 export const router = createBrowserRouter([
     {
@@ -58,6 +60,7 @@ export const router = createBrowserRouter([
       path: 'dashboard',
       element: <PrivateRoute> <Dashboard></Dashboard> </PrivateRoute>,
       children:[
+        // Admin
         {
           path: 'adminHome',
           element: <AdminHome></AdminHome>
@@ -85,6 +88,15 @@ export const router = createBrowserRouter([
         {
           path: 'patientReview',
           element: <PatientReview></PatientReview>
+        },
+        // User
+        {
+          path: 'myAppointment',
+          element: <MyAppointment></MyAppointment>
+        },
+        {
+          path: 'myReview',
+          element: <MyReview></MyReview>
         },
       ]
     }
