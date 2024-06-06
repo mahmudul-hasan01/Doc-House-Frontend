@@ -16,6 +16,8 @@ import AllDoctor from "../Dashboard/Admin/AllDoctor";
 import UpdateDoctor from "../Dashboard/Admin/UpdateDoctor";
 import ErrorPage from "../Components/Error/ErrorPage";
 import PrivateRoute from "../Components/PrivateRoute/PrivateRoute";
+import ManageAppointment from "../Dashboard/Admin/ManageAppointment";
+import PatientReview from "../Dashboard/Admin/PatientReview";
 
 export const router = createBrowserRouter([
     {
@@ -75,6 +77,14 @@ export const router = createBrowserRouter([
         {
           path: 'allDoctor',
           element: <AllDoctor></AllDoctor>
+        },
+        {
+          path: 'manageAppointment',
+          element: <ManageAppointment></ManageAppointment>
+        },
+        {
+          path: 'patientReview',
+          element: <PatientReview></PatientReview>
         },
       ]
     }

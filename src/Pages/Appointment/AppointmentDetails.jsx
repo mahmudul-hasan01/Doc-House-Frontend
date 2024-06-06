@@ -28,14 +28,16 @@ const AppointmentDetails = () => {
             return info?.data
         }
     })
-
-        useEffect(() => {
+    
+    useEffect(() => {
+        if (data) {
             axiosPublic.get(`/feedback?name=${data?.name}`)
                 .then(res => {
                     setFeedback(res?.data)
                 })
-            // eslint-disable-next-line react-hooks/exhaustive-deps
-        }, [])
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     const handleFeedback = async (e) => {
         e.preventDefault()
@@ -77,7 +79,7 @@ const AppointmentDetails = () => {
                             <p>{data?.availableDate}:</p>
                             <div className="flex items-center gap-2">
                                 <p>{data?.availableTimeStart}</p>
-                                {/* <FaArrowsAltH /> */} -
+                                 -
                                 <p>{data?.availableTimeEnd}</p>
                             </div>
                         </div>
@@ -103,7 +105,10 @@ const AppointmentDetails = () => {
                                             </div>
                                             <p>Price: <span className="font-semibold">{data?.price} BDT</span></p>
                                             <div className="mt-5">
-                                                <Payment price={data?.price}></Payment>
+                                                {
+                                                    data?.price &&
+                                                    <Payment price={data?.price} doctorName={data?.name} image={data?.image} startDate={data?.availableTimeStart} endDate={data?.availableTimeEnd}></Payment>
+                                                }
                                             </div>
                                         </div>
                                         <div className="flex justify-end">

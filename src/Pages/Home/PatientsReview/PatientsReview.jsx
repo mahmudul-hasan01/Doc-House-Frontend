@@ -55,7 +55,7 @@ const PatientsReview = () => {
                         <input type="time" name='Time' placeholder="Time" className="py-2 pl-2 rounded-md w-full bg-transparent border text-white border-red-400 max-w-xs" />
                     </div> */}
                     <div className="flex-1 space-y-4">
-                        <h2 className="font-semibold mt-10 text-white">Give your valuable review about our hospital</h2>
+                        <h2 className="font-semibold text-xl mt-10 text-white ">Give your valuable review about our hospital</h2>
                         <div className={'mb-4'}>
                             <Rating
                                 style={{ maxWidth: 180 }}

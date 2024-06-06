@@ -3,7 +3,7 @@ import {Elements} from '@stripe/react-stripe-js'
 import { loadStripe } from "@stripe/stripe-js";
 import CheckoutForm from '../CheckoutForm/CheckoutForm';
 
-const Payment = ({price}) => {
+const Payment = ({price,doctorName, image, startDate, endDate}) => {
 
 const stripePromise = loadStripe(import.meta.env.VITE_PAYMENT_GATEWAY);
 
@@ -11,7 +11,7 @@ const stripePromise = loadStripe(import.meta.env.VITE_PAYMENT_GATEWAY);
         <div>
             <div>
                 <Elements stripe={stripePromise}>
-                    <CheckoutForm price={price} />
+                    <CheckoutForm price={price} doctorName={doctorName} image={image} startDate={startDate} endDate={endDate}/>
                 </Elements>
             </div>
         </div>

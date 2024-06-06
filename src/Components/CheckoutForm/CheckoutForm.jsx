@@ -3,15 +3,17 @@ import useAuth from "../../Hooks/useAuth";
 import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import { useNavigate } from "react-router-dom";
 
 // eslint-disable-next-line react/prop-types
-const CheckoutForm = ({ price }) => {
+const CheckoutForm = ({ price, doctorName, image, startDate, endDate }) => {
 
     const { user } = useAuth()
     const stripe = useStripe()
     const elements = useElements()
     const axiosPublic = useAxiosPublic()
-    const [ clientSecret, setClientSecret ] = useState()
+    const navigate = useNavigate()
+    const [clientSecret, setClientSecret] = useState()
 
     useEffect(() => {
         if (price > 0) {
@@ -57,25 +59,25 @@ const CheckoutForm = ({ price }) => {
         if (confirmError) {
             console.log(confirmError);
         } else {
-            console.log(paymentIntent);
-            // if (paymentIntent.status === 'succeeded') {
-            //     toast.success(paymentIntent?.id)
-            //     const payment = {
-            //         email: user?.email,
-            //         price: totalPrice,
-            //         transactionId: paymentIntent.id,
-            //         date: new Date(),
-            //         cartIds: cart.map(item => item._id),
-            //         menuItemIds: cart.map(item => item.menuId),
-            //         status: 'pending'
-            //     }
-            //     const res = await axiosSecure.post('/payment', payment)
-            //     if (res?.data?.paymentResult.insertedId) {
-            //         toast.success('Payment Successfully')
-            //         navigate('/dashboard/paymentHistory')
-            //         refetch()
-            //     }
-            // }
+            if (paymentIntent.status === 'succeeded') {
+                toast.success(paymentIntent?.id)
+                const payment = {
+                    email: user?.email,
+                    price: price,
+                    transactionId: paymentIntent.id,
+                    doctorName: doctorName,
+                    image: image,
+                    startDate: startDate,
+                    endDate: endDate,
+                    status: 'Appointment'
+                }
+                const res = await axiosPublic.post('/payment', payment)
+                console.log(res?.data);
+                if (res?.data?.insertedId) {
+                    toast.success('Payment Successfully')
+                    // navigate('/dashboard/paymentHistory')
+                }
+            }
         }
     }
 

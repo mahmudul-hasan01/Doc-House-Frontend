@@ -1,12 +1,13 @@
 import { NavLink, Outlet } from "react-router-dom";
-import { FaCartShopping, FaUserDoctor, FaUsers } from "react-icons/fa6";
+import { FaUserDoctor, FaUsers } from "react-icons/fa6";
 import { FaAddressCard, FaCalendar, FaHome, FaList } from "react-icons/fa";
 import { GiDoctorFace } from "react-icons/gi";
+import useAdmin from "../Hooks/useAdmin";
 
 
 const Dashboard = () => {
 
-    const isAdmin = true
+    const { isAdmin } = useAdmin()
 
     return (
         <div className="flex">
@@ -24,14 +25,20 @@ const Dashboard = () => {
 
                                     <li><NavLink to='/dashboard/addDoctor' className="flex items-center gap-2 bg-[#07332F] hover:bg-[#07332fce] duration-500 px-8 py-2 rounded-md text-white"><FaUserDoctor /> Add Doctor</NavLink></li>
 
+                                    <li><NavLink to='/dashboard/manageAppointment' className="flex items-center gap-2 bg-[#07332F] hover:bg-[#07332fce] duration-500 px-8 py-2 rounded-md text-white"><FaUserDoctor /> M-Appointment</NavLink></li>
+
+                                    <li><NavLink to='/dashboard/patientReview' className="flex items-center gap-2 bg-[#07332F] hover:bg-[#07332fce] duration-500 px-8 py-2 rounded-md text-white"><FaUserDoctor /> P-Review</NavLink></li>
+
                                 </>
                                 :
                                 <>
-                                    <li><NavLink to='/dashboard/userHome'><FaHome /> User Home</NavLink></li>
-                                    <li><NavLink to='/dashboard/cart'><FaCartShopping /> My Cart </NavLink></li>
-                                    <li><NavLink to='/dashboard/paymentHistory'><FaCalendar /> Payment History</NavLink></li>
-                                    <li><NavLink to='/dashboard/review'><FaAddressCard /> Review</NavLink></li>
-                                    <li><NavLink to='/dashboard/booking'><FaList /> My Booking</NavLink></li>
+                                    <li><NavLink to='/dashboard/userHome' className="flex items-center gap-2 bg-[#07332F] hover:bg-[#07332fce] duration-500 px-8 py-2 rounded-md text-white"><FaHome /> User Home</NavLink></li>
+
+                                    <li><NavLink to='/dashboard/paymentHistory' className="flex items-center gap-2 bg-[#07332F] hover:bg-[#07332fce] duration-500 px-8 py-2 rounded-md text-white"><FaCalendar /> Payment History</NavLink></li>
+
+                                    <li><NavLink to='/dashboard/review' className="flex items-center gap-2 bg-[#07332F] hover:bg-[#07332fce] duration-500 px-8 py-2 rounded-md text-white"><FaAddressCard /> Review</NavLink></li>
+
+                                    <li><NavLink to='/dashboard/booking' className="flex items-center gap-2 bg-[#07332F] hover:bg-[#07332fce] duration-500 px-8 py-2 rounded-md text-white"><FaList /> My Booking</NavLink></li>
                                 </>
                         }
                         <hr />
