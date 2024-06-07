@@ -32,13 +32,13 @@ const Dashboard = () => {
                                 </>
                                 :
                                 <>
-                                    <li><NavLink to='/dashboard/userHome' className="flex items-center gap-2 bg-[#07332F] hover:bg-[#07332fce] duration-500 px-8 py-2 rounded-md text-white"><FaHome /> User Home</NavLink></li>
+                                    {/* <li><NavLink to='/dashboard/userHome' className="flex items-center gap-2 bg-[#07332F] hover:bg-[#07332fce] duration-500 px-8 py-2 rounded-md text-white"><FaHome /> User Home</NavLink></li> */}
 
                                     <li><NavLink to='/dashboard/myAppointment' className="flex items-center gap-2 bg-[#07332F] hover:bg-[#07332fce] duration-500 px-8 py-2 rounded-md text-white"><FaCalendar /> My Appointment</NavLink></li>
 
                                     <li><NavLink to='/dashboard/myReview' className="flex items-center gap-2 bg-[#07332F] hover:bg-[#07332fce] duration-500 px-8 py-2 rounded-md text-white"><FaAddressCard /> Review</NavLink></li>
 
-                                    <li><NavLink to='/dashboard/booking' className="flex items-center gap-2 bg-[#07332F] hover:bg-[#07332fce] duration-500 px-8 py-2 rounded-md text-white"><FaList /> My Booking</NavLink></li>
+                                    {/* <li><NavLink to='/dashboard/booking' className="flex items-center gap-2 bg-[#07332F] hover:bg-[#07332fce] duration-500 px-8 py-2 rounded-md text-white"><FaList /> My Booking</NavLink></li> */}
                                 </>
                         }
                         <hr />

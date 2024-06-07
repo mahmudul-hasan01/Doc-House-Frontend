@@ -75,10 +75,10 @@ const SignUp = () => {
                     <label htmlFor="_password" className="block">Password</label>
                     <input id="_password" type="password" {...register("password")} placeholder=".............." min={5} className="p-3 block w-full outline-none border rounded-md invalid:border-red-700 valid:border-black" />
                     <input type="file" {...register("image")} />
-                    <button type="submit" className="py-2 px-5 mx-auto mt-8 shadow-lg border rounded-md border-black block hover:bg-[#07332F] hover:text-white duration-500">
+                    <button type="submit" className="py-2 px-5 mx-auto mt-8 shadow-lg border rounded-md border-[#07332F] hover:border-[#F7A582] block hover:bg-[#F7A582] hover:text-white duration-500">
                         {
                             loading ?
-                                <div className="w-10 h-5 flex gap-2 items-center justify-center"><div className="w-2 h-5 animate-[ping_1.4s_linear_infinite] bg-[#07332F]"></div><div className="w-2 h-5 animate-[ping_1.8s_linear_infinite] bg-[#07332F]"></div><div className="w-2 h-5 animate-[ping_2s_linear_infinite] bg-[#07332F]"></div></div>
+                                <div className="w-10 h-5 flex gap-2 items-center justify-center"><div className="w-2 h-5 animate-[ping_1.4s_linear_infinite] bg-[#F7A582]"></div><div className="w-2 h-5 animate-[ping_1.8s_linear_infinite] bg-[#F7A582]"></div><div className="w-2 h-5 animate-[ping_2s_linear_infinite] bg-[#F7A582]"></div></div>
                                 :
                                 'SingUp'
                         }
@@ -88,7 +88,7 @@ const SignUp = () => {
                 {/* button type will be submit for handling form submission*/}
                 <p className="text-center py-2">You have an account?<Link to={'/login'} className="underline font-semibold hover:text-[#07332F]">Login</Link></p>
                 <hr />
-                <button onClick={handleGoogleSignIn} type="button" className="py-2 px-5 mb-4 mt-8 mx-auto block shadow-lg border rounded-md border-black hover:bg-[#07332F] hover:text-white duration-500"><FcGoogle className="w-6 inline-block mr-3" /> Continue with Google</button>
+                <button onClick={handleGoogleSignIn} type="button" className="py-2 px-5 mb-4 mt-8 mx-auto block shadow-lg border rounded-md border-black hover:border-[#F7A582] hover:bg-[#F7A582] hover:text-white duration-500"><FcGoogle className="w-6 inline-block mr-3" /> Continue with Google</button>
             </div>
 
         </div>

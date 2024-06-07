@@ -100,7 +100,7 @@ const CheckoutForm = ({ price, doctorName, image, startDate, endDate }) => {
                 }}
             />
             <div className="flex justify-center">
-                <button className="py-2 px-4 bg-[#07332F] rounded-md text-white mt-8" type="submit" disabled={!stripe || !clientSecret}>
+                <button className="py-2 px-4 bg-[#F7A582] rounded-md text-white mt-8" type="submit" disabled={!stripe || !clientSecret}>
                     Pay
                 </button>
             </div>

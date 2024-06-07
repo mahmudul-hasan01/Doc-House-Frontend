@@ -63,7 +63,7 @@ const AppointmentDetails = () => {
                             <img className="w-60 lg:w-80 rounded-md" src={data?.image} alt="" />
                         </div>
                         <div className="space-y-5">
-                            <p className="py-2 px-4 bg-[#5DAABE] text-white rounded-md">{data?.specialty}</p>
+                            <p className="py-2 px-4 bg-[#F7A582] text-white rounded-md">{data?.specialty}</p>
                             <h6 className="text-sm md:text-base lg:text-lg">{data?.name} </h6>
                             <p className="flex items-center gap-3 text-xl"><FaStar className="text-yellow-400" /> {data?.rating}</p>
                         </div>
@@ -86,7 +86,7 @@ const AppointmentDetails = () => {
                         {/* Modal */}
                         <div className="flex justify-center">
                             <div className="mx-auto w-fit">
-                                <button onClick={() => setOpenModal(true)} className="py-2 px-4 bg-[#07332F] rounded-md text-white">
+                                <button onClick={() => setOpenModal(true)} className="py-2 px-4 bg-[#F7A582] rounded-md text-white">
                                     Book Appointment
                                 </button>
                                 <div
@@ -112,7 +112,7 @@ const AppointmentDetails = () => {
                                             </div>
                                         </div>
                                         <div className="flex justify-end">
-                                            <button onClick={() => setOpenModal(false)} className="rounded-md border border-rose-600 px-6 py-[6px] text-rose-600 duration-150 hover:bg-rose-600 hover:text-white">
+                                            <button onClick={() => setOpenModal(false)} className="rounded-md border border-[red] px-6 py-[6px] text-[red] duration-150 hover:bg-[red] hover:text-white">
                                                 Cancel
                                             </button>
                                         </div>
@@ -131,7 +131,7 @@ const AppointmentDetails = () => {
                         </TabList>
 
                         <TabPanel className={'text-start p-5'}>
-                            <h1 className="my-5 font-semibold">About Of <span className="text-[#30a5c2] ">{data?.name}</span></h1>
+                            <h1 className="my-5 font-semibold">About Of <span className="text-[#F7A582] ">{data?.name}</span></h1>
                             <p>{data?.about}</p>
                             <div className="mt-5 space-y-2">
                                 <h1 className="font-bold">Education</h1>
@@ -140,7 +140,7 @@ const AppointmentDetails = () => {
                                     <FaArrowsAltH />
                                     <p>{data?.endDate}</p>
                                 </div>
-                                <p className="text-[#30a5c2]">{data?.education}</p>
+                                <p className="text-[#F7A582]">{data?.education}</p>
                             </div>
                         </TabPanel>
                         <TabPanel>
@@ -157,9 +157,9 @@ const AppointmentDetails = () => {
                                             />
                                         </div>
                                         <p className="font-semibold py-4">Share your feedback or suggestions</p>
-                                        <input name={'feedback'} type="text" placeholder="Feedback" className="rounded-lg border border-[#07332fce] w-[400px] h-[100px] pl-4 bg-transparent ring-offset-1 duration-200 focus:outline-none focus:ring-2 mt-2 mb-5" />
+                                        <input name={'feedback'} type="text" placeholder="Feedback" className="rounded-lg border border-[#F7A582] w-[400px] h-[100px] pl-4 bg-transparent ring-offset-1 duration-200 focus:outline-none focus:ring-2 mt-2 mb-5" />
                                         <div className="flex justify-center">
-                                            <button className="py-3 px-5 bg-[#07332f] text-white rounded-md">Submit Feedback</button>
+                                            <button className="py-3 px-5 bg-[#F7A582] text-white rounded-md">Submit Feedback</button>
                                         </div>
                                     </form>
                                 </div>
